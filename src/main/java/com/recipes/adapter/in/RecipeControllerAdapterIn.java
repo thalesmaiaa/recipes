@@ -36,8 +36,8 @@ public class RecipeControllerAdapterIn {
     @PostMapping
     public ResponseEntity<Void> createRecipe(@RequestBody @Valid CreateRecipeRequest createRecipeRequest) {
         log.info("RecipeControllerAdapterIn.createRecipe - payload: [{}]", createRecipeRequest.toString());
-        var createdRecipe = createRecipePortIn.execute(createRecipeRequest.toDomain());
-        var resourceLocation = URI.create("/v1/recipes/" + createdRecipe.id());
+        var recipeId = createRecipePortIn.execute(createRecipeRequest.toDomain());
+        var resourceLocation = URI.create("/v1/recipes/" + recipeId);
         return ResponseEntity.created(resourceLocation).build();
     }
 

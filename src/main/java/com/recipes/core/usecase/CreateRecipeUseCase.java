@@ -1,6 +1,5 @@
 package com.recipes.core.usecase;
 
-import com.recipes.adapter.in.dto.response.RecipeResponse;
 import com.recipes.core.domain.Recipe;
 import com.recipes.core.ports.in.CreateRecipePortIn;
 import com.recipes.core.ports.out.RecipeAdapterPortOut;
@@ -15,9 +14,9 @@ public class CreateRecipeUseCase implements CreateRecipePortIn {
 
     private final RecipeAdapterPortOut recipeAdapterPortOut;
 
-    public RecipeResponse execute(Recipe recipe) {
+    public Long execute(Recipe recipe) {
         var createdRecipe = recipeAdapterPortOut.saveRecipe(recipe);
         log.info("CreateRecipeUseCase.execute - Recipe [{}] created", createdRecipe.getId());
-        return createdRecipe.toResponse();
+        return createdRecipe.getId();
     }
 }
