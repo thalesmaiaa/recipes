@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: recipes
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/recipes_db
+    username: postgres
+    password: recipes123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  data:
+    web:
+      pageable:
+        serialization-mode: via_dto

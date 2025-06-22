@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres:14.7
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: recipes123
+      POSTGRES_DB: recipes_db
+    ports:
+      - "5432:5432"
