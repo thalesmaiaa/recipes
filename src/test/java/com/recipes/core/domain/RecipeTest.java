@@ -43,7 +43,7 @@ class RecipeTest {
         assertThat(response.description()).isEqualTo("desc");
         assertThat(response.ingredients()).containsExactly("a");
         assertThat(response.instructions()).containsExactly("b");
-        assertThat(response.isVegetarian()).isTrue();
+        assertThat(response.vegetarian()).isTrue();
         assertThat(response.servingSize()).isEqualTo(2);
     }
 }

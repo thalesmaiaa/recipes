@@ -46,9 +46,9 @@ public class RecipeSpecifications {
         return cb.equal(root.get("vegetarian"), isVegetarian);
     }
 
-    private static Predicate matchesServingSize(Integer servings, Root<RecipeEntity> root, CriteriaBuilder cb) {
-        if (Objects.isNull(servings)) return null;
-        return cb.equal(root.get("servingSize"), servings);
+    private static Predicate matchesServingSize(Integer servingsSize, Root<RecipeEntity> root, CriteriaBuilder cb) {
+        if (Objects.isNull(servingsSize)) return null;
+        return cb.equal(root.get("servingSize"), servingsSize);
     }
 
     private static Predicate getPredicate(Root<RecipeEntity> root, CriteriaBuilder cb, String field, String value) {
