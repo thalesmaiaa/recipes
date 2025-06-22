@@ -1,7 +1,7 @@
 package com.recipes.core.usecase;
 
-import com.recipes.core.factory.RecipeFactory;
 import com.recipes.core.ports.out.RecipeAdapterPortOut;
+import com.recipes.factory.RecipeFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.recipes.core.factory;
+package com.recipes.factory;
 
 import com.recipes.adapter.in.dto.response.RecipeResponse;
 import com.recipes.core.domain.Recipe;
