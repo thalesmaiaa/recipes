@@ -86,6 +86,7 @@ class RecipeControllerAdapterInTest {
     void shouldFindRecipesWithFilters() {
         var filters = new RecipeFiltersRequest(
                 List.of("Spaghetti"),
+                List.of("Meat"),
                 "instructions",
                 false,
                 2

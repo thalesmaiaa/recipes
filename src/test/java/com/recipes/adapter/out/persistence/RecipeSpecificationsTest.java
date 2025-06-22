@@ -17,6 +17,7 @@ class RecipeSpecificationsTest {
     void shouldBuildSpecificationWithAllFilters() {
         var filters = new RecipeFiltersRequest(
                 List.of("egg", "milk"),
+                List.of("nuts"),
                 "bake",
                 true,
                 4
@@ -43,7 +44,7 @@ class RecipeSpecificationsTest {
 
     @Test
     void shouldBuildSpecificationWithNoFilters() {
-        var filters = new RecipeFiltersRequest(null, null, null, null);
+        var filters = new RecipeFiltersRequest(null, null, null, null, null);
         var root = mock(Root.class);
         var cb = mock(CriteriaBuilder.class);
         var p1 = mock(Predicate.class);
@@ -59,7 +60,7 @@ class RecipeSpecificationsTest {
 
     @Test
     void shouldBuildSpecificationWithSomeFilters() {
-        var filters = new RecipeFiltersRequest(List.of("egg"), null, null, null);
+        var filters = new RecipeFiltersRequest(List.of("egg"), List.of("bread"), null, null, null);
         var root = mock(Root.class);
         var cb = mock(CriteriaBuilder.class);
         var p1 = mock(Predicate.class);
@@ -77,7 +78,7 @@ class RecipeSpecificationsTest {
 
     @Test
     void shouldBuildSpecificationWithEmptyInstruction() {
-        var filters = new RecipeFiltersRequest(null, "", null, null);
+        var filters = new RecipeFiltersRequest(null, null, "", null, null);
         var root = mock(Root.class);
         var cb = mock(CriteriaBuilder.class);
         var p1 = mock(Predicate.class);
