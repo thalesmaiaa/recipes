@@ -1,3 +1,7 @@
+![Java](https://img.shields.io/badge/17-red?style=plastic&logoColor=red&label=java&link=https%3A%2F%2Fwww.oracle.com%2Fjava%2Ftechnologies%2Fjavase%2Fjdk17-archive-downloads.html)
+![Spring Boot](https://img.shields.io/badge/3.5.0-blue?style=plastic&logoColor=red&label=Spring%20Boot&link=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-boot)
+![PostgreSQL-14.17](https://img.shields.io/badge/PostgreSQL-yellow?style=plastic&link=https%3A%2F%2Fwww.postgresql.org%2F)
+
 # 🍲 Recipes RESTful API
 
 A Java Spring Boot RESTful API for managing cooking recipes. The API allows users to create, read, update, delete, and
@@ -38,12 +42,12 @@ search for recipes with flexible filters.
 ## ⚙️ Design Choices
 
 - **Hexagonal Architecture**: Clear separation between domain, application, and infrastructure.
-    - Core: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
-    - Adapters:
-        - Primary Adapters: REST controllers that handle HTTP requests and responses.
-        - Secondary Adapters: Implement the ports defined in the core, such as database repositories and more if
-          required.
-    - Ports (Interfaces): Define the operations required by the core, such as repositories and services.
+  - Core: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
+  - Adapters:
+    - Primary Adapters: REST controllers that handle HTTP requests and responses.
+    - Secondary Adapters: Implement the ports defined in the core, such as database repositories and more if
+      required.
+  - Ports (Interfaces): Define the operations required by the core, such as repositories and services.
 - **DTOs**: Used for API requests/responses to decouple domain from transport.
 - **Validation**: Uses Jakarta Bean Validation for input checks.
 - **Exception Handling**: Centralized with meaningful HTTP status codes and messages.
@@ -103,13 +107,13 @@ src/
 ## 🧩 Domain Model
 
 - **Recipe**
-    - `id`: Long
-    - `title`: String
-    - `description`: String
-    - `ingredients`: List<String>
-    - `instructions`: List<String>
-    - `vegetarian`: Boolean (optional, default false)
-    - `servingSize`: Integer
+  - `id`: Long
+  - `title`: String
+  - `description`: String
+  - `ingredients`: List<String>
+  - `instructions`: List<String>
+  - `vegetarian`: Boolean (optional, default false)
+  - `servingSize`: Integer
 
 ---
 
@@ -178,16 +182,16 @@ src/
   This endpoint supports dynamic filtering using the Spring Data JPA Specification API. You can combine any of the
   following query parameters:
 
-    - `includedIngredients` (`String[]`): Only recipes containing **all** specified ingredients are returned.
-    - `excludedIngredients` (`String[]`): Recipes containing **any** of these ingredients are excluded.
-    - `instruction` (`String`): Returns recipes where **any instruction step** contains the given string (
-      case-insensitive).
-    - `vegetarian` (`Boolean`): Filters recipes by their vegetarian status.
-    - `servingSize` (`Integer`): Filters recipes by the exact serving size.
-    - **Pagination:**
-        - `page` (default: 0): Page number (starts at 0)
-        - `size` (default: 20): Number of recipes per page
-        - `sort={fieldName},{ASC|DESC}`: Sort results by field and direction
+  - `includedIngredients` (`String[]`): Only recipes containing **all** specified ingredients are returned.
+  - `excludedIngredients` (`String[]`): Recipes containing **any** of these ingredients are excluded.
+  - `instruction` (`String`): Returns recipes where **any instruction step** contains the given string (
+    case-insensitive).
+  - `vegetarian` (`Boolean`): Filters recipes by their vegetarian status.
+  - `servingSize` (`Integer`): Filters recipes by the exact serving size.
+  - **Pagination:**
+    - `page` (default: 0): Page number (starts at 0)
+    - `size` (default: 20): Number of recipes per page
+    - `sort={fieldName},{ASC|DESC}`: Sort results by field and direction
 
 - **How Filtering Works:**  
   All provided filters are combined using logical **AND**. For example, you can search for vegetarian recipes that serve
@@ -208,12 +212,8 @@ src/
       "id": 1,
       "title": "Spaghetti Bolognese",
       "description": "A classic Italian pasta dish...",
-      "ingredients": [
-        "Spaghetti"
-      ],
-      "instructions": [
-        "Boil pasta"
-      ],
+      "ingredients": ["Spaghetti"],
+      "instructions": ["Boil pasta"],
       "vegetarian": false,
       "servingSize": 4
     }
