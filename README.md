@@ -150,8 +150,8 @@ src/
     "id": 1,
     "title": "Spaghetti Bolognese",
     "description": "A classic Italian pasta dish...",
-    "ingredients": ["Spaghetti", "Beef", "Tomato sauce"],
-    "instructions": ["Boil pasta", "Cook beef", "Mix sauce"],
+    "ingredients": ["spaghetti"],
+    "instructions": ["boil pasta", "cook beef", "mix sauce"],
     "vegetarian": false,
     "servingSize": 4
   }
@@ -214,8 +214,8 @@ src/
       "id": 1,
       "title": "Spaghetti Bolognese",
       "description": "A classic Italian pasta dish...",
-      "ingredients": ["Spaghetti"],
-      "instructions": ["Boil pasta"],
+      "ingredients": ["spaghetti"],
+      "instructions": ["boil pasta", "cook beef", "mix sauce"],
       "vegetarian": false,
       "servingSize": 4
     }
