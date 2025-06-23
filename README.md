@@ -38,12 +38,12 @@ search for recipes with flexible filters.
 ## ⚙️ Design Choices
 
 - **Hexagonal Architecture**: Clear separation between domain, application, and infrastructure.
-  - Core: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
-  - Adapters:
-    - Primary Adapters: REST controllers that handle HTTP requests and responses.
-    - Secondary Adapters: Implement the ports defined in the core, such as database repositories and more if
-      required.
-  - Ports (Interfaces): Define the operations required by the core, such as repositories and services.
+    - Core: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
+    - Adapters:
+        - Primary Adapters: REST controllers that handle HTTP requests and responses.
+        - Secondary Adapters: Implement the ports defined in the core, such as database repositories and more if
+          required.
+    - Ports (Interfaces): Define the operations required by the core, such as repositories and services.
 - **DTOs**: Used for API requests/responses to decouple domain from transport.
 - **Validation**: Uses Jakarta Bean Validation for input checks.
 - **Exception Handling**: Centralized with meaningful HTTP status codes and messages.
@@ -103,13 +103,13 @@ src/
 ## 🧩 Domain Model
 
 - **Recipe**
-  - `id`: Long
-  - `title`: String
-  - `description`: String
-  - `ingredients`: List<String>
-  - `instructions`: List<String>
-  - `vegetarian`: Boolean (optional, default false)
-  - `servingSize`: Integer
+    - `id`: Long
+    - `title`: String
+    - `description`: String
+    - `ingredients`: List<String>
+    - `instructions`: List<String>
+    - `vegetarian`: Boolean (optional, default false)
+    - `servingSize`: Integer
 
 ---
 
@@ -122,7 +122,7 @@ src/
 - **Request Body**:
   ```json
   {
-    "name": "Spaghetti Bolognese",
+    "title": "Spaghetti Bolognese",
     "description": "A classic Italian pasta dish...",
     "ingredients": ["Spaghetti", "Beef", "Tomato sauce"],
     "instructions": ["Boil pasta", "Cook beef", "Mix sauce"],
@@ -142,7 +142,7 @@ src/
   ```json
   {
     "id": 1,
-    "name": "Spaghetti Bolognese",
+    "title": "Spaghetti Bolognese",
     "description": "A classic Italian pasta dish...",
     "ingredients": ["Spaghetti", "Beef", "Tomato sauce"],
     "instructions": ["Boil pasta", "Cook beef", "Mix sauce"],
@@ -174,18 +174,58 @@ src/
 
 `GET /v1/recipes`
 
-- **Query Parameters** (all optional):
+- **Flexible Filtering (all optional):**  
+  This endpoint supports dynamic filtering using the Spring Data JPA Specification API. You can combine any of the
+  following query parameters:
 
-  - `includedIngredients`: List of ingredients to include
-  - `excludedIngredients`: List of ingredients to exclude
-  - `instruction`: String to search in instructions
-  - `vegetarian`: Boolean
-  - `servingSize`: Integer
-  - Pagination: `page` (default = 0 ), `size` (default = 20), `sort={fieldName},{ASC || DESC}`.
+    - `includedIngredients` (`String[]`): Only recipes containing **all** specified ingredients are returned.
+    - `excludedIngredients` (`String[]`): Recipes containing **any** of these ingredients are excluded.
+    - `instruction` (`String`): Returns recipes where **any instruction step** contains the given string (
+      case-insensitive).
+    - `vegetarian` (`Boolean`): Filters recipes by their vegetarian status.
+    - `servingSize` (`Integer`): Filters recipes by the exact serving size.
+    - **Pagination:**
+        - `page` (default: 0): Page number (starts at 0)
+        - `size` (default: 20): Number of recipes per page
+        - `sort={fieldName},{ASC|DESC}`: Sort results by field and direction
+
+- **How Filtering Works:**  
+  All provided filters are combined using logical **AND**. For example, you can search for vegetarian recipes that serve
+  four people and include "Tomato" but exclude "Cheese."
+
+- **Example Request:**
+
+  ```
+  GET /v1/recipes?includedIngredients=tomato,bread&excludedIngredients=cheese,garlic&vegetarian=true&servingSize=4&page=0&size=10
+  ```
 
 - **Response**: Paginated list of recipes
 
----
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "title": "Spaghetti Bolognese",
+      "description": "A classic Italian pasta dish...",
+      "ingredients": [
+        "Spaghetti"
+      ],
+      "instructions": [
+        "Boil pasta"
+      ],
+      "vegetarian": false,
+      "servingSize": 4
+    }
+  ],
+  "page": {
+    "size": 20,
+    "number": 0,
+    "totalElements": 1,
+    "totalPages": 1
+  }
+}
+```
 
 ## 🧪 Testing
 
