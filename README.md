@@ -36,6 +36,7 @@ search for recipes with flexible filters.
 - **Search**: Filter recipes by vegetarian, servings, included/excluded ingredients, and instruction content.
 - **RESTful API**: Follows REST principles and best practices.
 - **Validation & Error Handling**: Input validation and meaningful error responses.
+- **Modern Testing**: Integration tests run against a real PostgreSQL 14.17 instance using Testcontainers.
 
 ---
 
@@ -230,7 +231,10 @@ src/
 ## 🧪 Testing
 
 - Unit tests for domain, use cases, and controllers.
+- Integration tests using [Testcontainers](https://www.testcontainers.org/) to spin up a real PostgreSQL instance automatically.
 - Run all tests:
+
+> **Note:** Docker must be running on your machine for integration tests to work with Testcontainers.
 
 ```bash
 

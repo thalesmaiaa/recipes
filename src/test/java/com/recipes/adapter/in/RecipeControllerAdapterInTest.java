@@ -1,8 +1,6 @@
 package com.recipes.adapter.in;
 
-import com.recipes.adapter.in.dto.request.CreateRecipeRequest;
 import com.recipes.adapter.in.dto.request.RecipeFiltersRequest;
-import com.recipes.adapter.in.dto.request.UpdateRecipeRequest;
 import com.recipes.adapter.in.dto.response.RecipeResponse;
 import com.recipes.core.domain.Recipe;
 import com.recipes.core.ports.in.CreateRecipePortIn;
@@ -28,6 +26,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class RecipeControllerAdapterInTest {
 
+    private static final Long RECIPE_ID = 1L;
+
     @Mock
     private UpdateRecipePortIn updateRecipePortIn;
 
@@ -39,47 +39,38 @@ class RecipeControllerAdapterInTest {
 
     @Mock
     private FindRecipePortIn findRecipePortIn;
-
+    
     @InjectMocks
     private RecipeControllerAdapterIn controller;
 
     @Test
     void shouldCreateRecipeAndReturnCreatedResponse() {
-        var request = new CreateRecipeRequest(
-                "Spaghetti Bolognese",
-                "A classic Italian pasta dish with a rich meat sauce.",
-                List.of("Spaghetti"),
-                List.of("Cook spaghetti according to package instructions."),
-                false,
-                4
-        );
+        var request = RecipeFactory.buildCreateRecipeRequest();
 
-        when(createRecipePortIn.execute(any(Recipe.class))).thenReturn(42L);
+        when(createRecipePortIn.execute(any(Recipe.class))).thenReturn(RECIPE_ID);
         var response = controller.createRecipe(request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getHeaders().getLocation()).isEqualTo(URI.create("/v1/recipes/42"));
+        assertThat(response.getHeaders().getLocation()).isEqualTo(URI.create("/v1/recipes/" + RECIPE_ID));
         verify(createRecipePortIn).execute(any(Recipe.class));
     }
 
     @Test
     void shouldDeleteRecipe() {
-        var id = 10L;
-        controller.deleteRecipe(id);
-        verify(deleteRecipePortIn).execute(id);
+        controller.deleteRecipe(RECIPE_ID);
+        verify(deleteRecipePortIn).execute(RECIPE_ID);
     }
 
     @Test
     void shouldFindRecipeById() {
-        var id = 5L;
         var recipe = RecipeFactory.createRecipe();
         var recipeResponse = RecipeFactory.generateRecipeResponse(recipe);
-        when(findRecipePortIn.execute(id)).thenReturn(recipeResponse);
+        when(findRecipePortIn.execute(RECIPE_ID)).thenReturn(recipeResponse);
 
-        var result = controller.findRecipeById(id);
+        var result = controller.findRecipeById(RECIPE_ID);
 
         assertThat(result).isEqualTo(recipeResponse);
-        verify(findRecipePortIn).execute(id);
+        verify(findRecipePortIn).execute(RECIPE_ID);
     }
 
     @Test
@@ -103,20 +94,12 @@ class RecipeControllerAdapterInTest {
 
     @Test
     void shouldUpdateRecipe() {
-        var id = 7L;
-        var request = new UpdateRecipeRequest(
-                "Updated Recipe",
-                "Updated description",
-                List.of("Ingredient1", "Ingredient2"),
-                List.of("Step1", "Step2"),
-                false,
-                4
-        );
+        var request = RecipeFactory.buildUpdateRecipeRequest();
 
         var response = mock(RecipeResponse.class);
         when(updateRecipePortIn.execute(any(Recipe.class))).thenReturn(response);
 
-        var result = controller.updateRecipe(id, request);
+        var result = controller.updateRecipe(RECIPE_ID, request);
 
         assertThat(result).isEqualTo(response);
         verify(updateRecipePortIn).execute(any(Recipe.class));

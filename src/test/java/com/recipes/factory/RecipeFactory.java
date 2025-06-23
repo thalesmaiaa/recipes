@@ -1,5 +1,7 @@
 package com.recipes.factory;
 
+import com.recipes.adapter.in.dto.request.CreateRecipeRequest;
+import com.recipes.adapter.in.dto.request.UpdateRecipeRequest;
 import com.recipes.adapter.in.dto.response.RecipeResponse;
 import com.recipes.core.domain.Recipe;
 
@@ -38,5 +40,27 @@ public class RecipeFactory {
 
     public static RecipeResponse generateRecipeResponse(Recipe recipe) {
         return recipe.toResponse();
+    }
+
+    public static CreateRecipeRequest buildCreateRecipeRequest() {
+        return new CreateRecipeRequest(
+                "Spaghetti Bolognese",
+                "A classic Italian pasta dish with a rich meat sauce.",
+                List.of("Spaghetti"),
+                List.of("Cook spaghetti according to package instructions."),
+                false,
+                4
+        );
+    }
+
+    public static UpdateRecipeRequest buildUpdateRecipeRequest() {
+        return new UpdateRecipeRequest(
+                "Updated Recipe",
+                "Updated description",
+                List.of("ingredient1", "ingredient2"),
+                List.of("Step1", "Step2"),
+                false,
+                4
+        );
     }
 }
