@@ -83,7 +83,7 @@ public class RecipeSpecifications {
     }
 
     private static Expression<Integer> generateArrayEqualsPredicate(Root<RecipeEntity> root, CriteriaBuilder cb, String field, String value) {
-        return cb.function("array_position", Integer.class, root.get(field), cb.literal(value));
+        return cb.function("array_position", Integer.class, root.get(field), cb.literal(value.toLowerCase()));
     }
 
 }

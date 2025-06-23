@@ -41,7 +41,7 @@ public class RecipeEntity {
                 recipe.getTitle(),
                 recipe.getDescription(),
                 recipe.getIngredients().stream().map(String::toLowerCase).distinct().toList(),
-                recipe.getInstructions().stream().distinct().toList(),
+                recipe.getInstructions().stream().map(String::toLowerCase).distinct().toList(),
                 recipe.isVegetarian(),
                 recipe.getServingSize()
         );
