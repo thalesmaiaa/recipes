@@ -72,7 +72,7 @@ cd recipes
 - Start PostgreSQL using Docker Compose:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 **Note**: If you wish, you can change the default database connection credentials
