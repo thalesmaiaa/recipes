@@ -26,11 +26,11 @@ class RecipeEntityTest {
                 "garlic",
                 "olive oil");
         assertThat(entity.getInstructions()).containsExactlyInAnyOrder(
-                "Cook spaghetti according to package instructions.",
-                "In a pan, heat olive oil and sauté onion and garlic.",
-                "Add ground beef and cook until browned.",
-                "Stir in tomato sauce and simmer for 20 minutes.",
-                "Serve sauce over spaghetti.");
+                "cook spaghetti according to package instructions.",
+                "in a pan, heat olive oil and sauté onion and garlic.",
+                "add ground beef and cook until browned.",
+                "stir in tomato sauce and simmer for 20 minutes.",
+                "serve sauce over spaghetti.");
         assertThat(entity.isVegetarian()).isEqualTo(recipe.isVegetarian());
         assertThat(entity.getServingSize()).isEqualTo(recipe.getServingSize());
     }
