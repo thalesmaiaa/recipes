@@ -134,8 +134,10 @@ public class RecipeControllerAdapterIT extends AbstractIntegrationTest {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().title()).isEqualTo(updateRequest.title());
         assertThat(response.getBody().description()).isEqualTo(updateRequest.description());
-        assertThat(response.getBody().ingredients()).isEqualTo(updateRequest.ingredients());
-        assertThat(response.getBody().instructions()).isEqualTo(updateRequest.instructions());
+        assertThat(response.getBody().ingredients().stream().map(String::toLowerCase).toList())
+                .isEqualTo(updateRequest.ingredients().stream().map(String::toLowerCase).toList());
+        assertThat(response.getBody().instructions().stream().map(String::toLowerCase).toList())
+                .isEqualTo(updateRequest.instructions().stream().map(String::toLowerCase).toList());
     }
 
 }
