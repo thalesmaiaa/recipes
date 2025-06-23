@@ -7,11 +7,11 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public record CreateRecipeRequest(@NotBlank String name, @NotBlank String description,
+public record CreateRecipeRequest(@NotBlank String title, @NotBlank String description,
                                   @NotEmpty List<String> ingredients, @NotEmpty List<String> instructions,
-                                  boolean isVegetarian, @NotNull Integer servingSize) {
+                                  boolean vegetarian, @NotNull Integer servingSize) {
 
     public Recipe toDomain() {
-        return new Recipe(name, description, ingredients, instructions, isVegetarian, servingSize);
+        return new Recipe(title, description, ingredients, instructions, vegetarian, servingSize);
     }
 }
