@@ -27,7 +27,7 @@ public class FindRecipeUseCase implements FindRecipePortIn {
     }
 
     public Page<RecipeResponse> execute(RecipeFiltersRequest filtersRequest, Pageable pageable) {
-        log.debug("FindRecipeUseCase.execute - pageable: [{}]", pageable);
+        log.debug("FindRecipeUseCase.execute - filters: [{}], pageable: [{}]", filtersRequest, pageable);
         return recipeAdapterPortOut.findAll(filtersRequest, pageable).map(Recipe::toResponse);
     }
 }

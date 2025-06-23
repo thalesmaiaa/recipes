@@ -43,12 +43,13 @@ search for recipes with flexible filters.
 ## ⚙️ Design Choices
 
 - **Hexagonal Architecture**: Clear separation between domain, application, and infrastructure.
-  - Core: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
-  - Adapters:
-    - Primary Adapters: REST controllers that handle HTTP requests and responses.
-    - Secondary Adapters: Implement the ports defined in the core, such as database repositories and more if
+  - **Core**: Contains business logic, use cases, and domain models, isolated from infrastructure concerns.
+  - **Adapters**:
+    - Primary Adapters (AdaptersIn): REST controllers that handle HTTP requests and responses.
+    - Secondary Adapters (AdaptersOut): Implement the ports defined in the core, such as database repositories and
+      more if
       required.
-  - Ports (Interfaces): Define the operations required by the core, such as repositories and services.
+  - **Ports (Interfaces)**: Define the operations required by the core, such as repositories and services.
 - **DTOs**: Used for API requests/responses to decouple domain from transport.
 - **Validation**: Uses Jakarta Bean Validation for input checks.
 - **Exception Handling**: Centralized with meaningful HTTP status codes and messages.
@@ -74,15 +75,15 @@ cd recipes
 docker-compose up -d
 ```
 
-**Note**: If you want, you can change the default database connection credentials
+**Note**: If you wish, you can change the default database connection credentials
 in [application.yml](./src/main/resources/application.yml#L5-L9)
 and in [docker-compose.yml](./docker-compose.yml#L5-L7) as needed before starting the application.
 
 ### 3. **Build & Run the Application**
 
 ```bash
-  mvn clean install
-  mvn spring-boot:run
+  ./mvnw clean install
+  ./mvnw spring-boot:run
 ```
 
 The API will be available at: `http://localhost:8080`
@@ -95,9 +96,9 @@ The API will be available at: `http://localhost:8080`
 src/
   main/
     java/com/recipes/
-      adapter/in/         # REST controllers & DTOs
+      adapter/in/         # REST controllers, DTOs, Exception handler
       core/               # Domain, use cases, ports, exceptions
-      adapter/out/        # Persistence adapters (not shown)
+      adapter/out/        # Persistence adapters
     resources/
       application.yml     # Spring Boot configuration
   test/                   # Unit and integration tests
@@ -162,7 +163,7 @@ src/
 
 `PATCH /v1/recipes/{id}`
 
-- **Body**: Same as create (fields to update)
+- **Body**: Same as create (only include fields you want to update)
 - **Response**: Updated recipe
 
 ---
@@ -231,13 +232,14 @@ src/
 ## 🧪 Testing
 
 - Unit tests for domain, use cases, and controllers.
-- Integration tests using [Testcontainers](https://www.testcontainers.org/) to spin up a real PostgreSQL instance automatically.
+- Integration tests using [Testcontainers](https://www.testcontainers.org/) to spin up a real PostgreSQL instance
+  automatically.
 - Run all tests:
 
 > **Note:** Docker must be running on your machine for integration tests to work with Testcontainers.
 
 ```bash
 
- mvn test
+ ./mvnw test
 
 ```
